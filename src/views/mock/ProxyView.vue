@@ -1,3 +1,1 @@
-<template>
-  Proxy Here
-</template>
+<template>Proxy Here</template>

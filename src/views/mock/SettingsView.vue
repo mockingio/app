@@ -1,3 +1,1 @@
-<template>
-  Settings Here
-</template>
+<template>Settings Here</template>
