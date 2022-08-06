@@ -1,12 +1,12 @@
 <template>
   <div class="flex items-center" v-if="activeMock">
     <PlayIcon
-      @click="() => startMockServer(activeMock.data.id)"
+      @click="() => activeMock && startMockServer(activeMock.data.id)"
       class="cursor-pointer text-green-500 h-8 w-8"
       v-if="activeMock.state.status === 'stopped'"
     />
     <StopIcon
-      @click="() => stopMockServer(activeMock.data.id)"
+      @click="() => activeMock && stopMockServer(activeMock.data.id)"
       class="cursor-pointer text-red-500 h-8 w-8"
       v-if="activeMock.state.status === 'running'"
     />

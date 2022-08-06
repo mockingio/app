@@ -6,7 +6,7 @@
       >
         <ComboboxInput
           class="w-full border-0 bg-transparent dark:text-gray-400 py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
-          :displayValue="(i) => i.name"
+          :displayValue="(i: any) => i.name"
           @change="query = $event.target.value"
         />
         <ComboboxButton
@@ -68,7 +68,7 @@ const props = defineProps({
 const emits = defineEmits(["change"]);
 
 interface Item {
-  id: string;
+  id?: string;
   name: string;
 }
 

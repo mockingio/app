@@ -12,9 +12,10 @@
           <div class="ml-5">
             <router-link
               v-for="item in menuItems"
+              v-bind:key="item.route"
               active-class="text-green-500"
               class="pr-3 py-2 hover:text-green-500"
-              :to="{ name: item.route, params: { id: activeMock.data.id } }"
+              :to="{ name: item.route, params: { id: activeMock?.data.id } }"
             >
               {{ item.name }}
             </router-link>

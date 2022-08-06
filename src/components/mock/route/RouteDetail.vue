@@ -44,7 +44,7 @@ import { computed } from "vue";
 const { patchRoute } = useMockStore();
 
 const props = defineProps({
-  mock: { type: Object as () => Mock, required: true },
+  mock: { type: Object as () => Mock | undefined, required: true },
   route: { type: Object as () => Route, required: true },
 });
 
@@ -68,6 +68,9 @@ const change = (field: string) => (evt: any) => {
   } else if (typeof evt === "object") {
     val = evt.target.value;
   }
-  patchRoute(props.mock.data.id, props.route.id, { [field]: val });
+
+  if (props.mock) {
+    patchRoute(props.mock.data.id, props.route.id, { [field]: val });
+  }
 };
 </script>

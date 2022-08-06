@@ -35,7 +35,7 @@ export default defineComponent({
     draggable: VueDraggableNext,
   },
   props: {
-    mock: { type: Object as () => Mock, required: true },
+    mock: { type: Object as () => Mock | undefined, required: true },
     route: { type: Object as () => Route, required: true },
   },
   data() {

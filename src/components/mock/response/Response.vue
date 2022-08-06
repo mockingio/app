@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, ref, Ref } from "vue";
+import { computed, inject, ref, type Ref } from "vue";
 import { TrashIcon } from "@heroicons/vue/outline";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
 import Body from "@/components/mock/response/Body.vue";
