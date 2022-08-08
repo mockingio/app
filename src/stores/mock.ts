@@ -188,9 +188,90 @@ export const useMockStore = defineStore({
         ]);
 
         this.mocks = mockData.data.map((mock) => ({
-          data: mock,
+          data: {
+            ...mock,
+            routes: mock.routes || [],
+          },
           state: stateData.data[mock.id],
         }));
+      } catch (error) {
+        this.error = {
+          error,
+        };
+      }
+    },
+    async deleteRoute(mockId: string, routeId: string) {
+      try {
+        const mockIdx = this.mocks.findIndex((m) => m.data.id === mockId);
+        if (mockIdx === undefined) {
+          return;
+        }
+
+        const mock = this.mocks[mockIdx];
+
+        const routeIdx = mock.data.routes.findIndex((r) => r.id === routeId);
+        if (routeIdx === undefined) {
+          return;
+        }
+
+        await axios.delete(getUrl(`/mocks/${mockId}/routes/${routeId}`));
+
+        const routes = mock.data.routes.filter((item) => item.id !== routeId);
+        this.mocks[mockIdx] = {
+          ...mock,
+          data: { ...mock.data, routes },
+        };
+      } catch (error) {
+        this.error = {
+          error,
+        };
+      }
+    },
+    async createRoute(mockId: string, data: Route) {
+      try {
+        const mockIdx = this.mocks.findIndex((m) => m.data.id === mockId);
+        if (mockIdx === undefined) {
+          return;
+        }
+
+        const mock = this.mocks[mockIdx];
+
+        if (mock.data.routes.some((r) => r.id === data.id)) {
+          return;
+        }
+
+        const { data: newRoute } = await axios.post(
+          getUrl(`/mocks/${mockId}/routes`),
+          data
+        );
+
+        this.mocks[mockIdx] = {
+          ...mock,
+          data: { ...mock.data, routes: [...mock.data.routes, newRoute] },
+        };
+      } catch (error) {
+        this.error = {
+          error,
+        };
+      }
+    },
+    async duplicateRoute(mockId: string, routeId: string) {
+      try {
+        const mockIdx = this.mocks.findIndex((m) => m.data.id === mockId);
+        if (mockIdx === undefined) {
+          return;
+        }
+
+        const { data: newRoute } = await axios.post<Route>(
+          getUrl(`/mocks/${mockId}/routes/${routeId}/clones`)
+        );
+
+        const mock = this.mocks[mockIdx];
+
+        this.mocks[mockIdx] = {
+          ...mock,
+          data: { ...mock.data, routes: [...mock.data.routes, newRoute] },
+        };
       } catch (error) {
         this.error = {
           error,

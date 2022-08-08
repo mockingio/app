@@ -33,14 +33,17 @@
 </template>
 
 <script setup lang="ts">
-import type { Mock, Route } from "@/stores";
+import { useMockStore, type Mock, type Route } from "@/stores";
 import PopoverMenu from "@/components/ui/PopoverMenu.vue";
 import { computed } from "vue";
+import { v4 } from "uuid";
 
 const props = defineProps({
   route: { type: Object as () => Route, required: true },
   mock: { type: Object as () => Mock, required: true },
 });
+
+const { deleteRoute, duplicateRoute } = useMockStore();
 
 const shortMethodMap: { [key: string]: string } = {
   POST: "POST",
@@ -58,9 +61,15 @@ const shortMethod = computed(() => {
 const items = [
   {
     name: "Duplicate",
+    click: () => {
+      duplicateRoute(props.mock.data.id, props.route.id);
+    },
   },
   {
     name: "Delete",
+    click: () => {
+      deleteRoute(props.mock.data.id, props.route.id);
+    },
   },
 ];
 </script>
