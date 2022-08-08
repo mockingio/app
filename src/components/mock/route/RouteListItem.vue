@@ -36,7 +36,6 @@
 import { useMockStore, type Mock, type Route } from "@/stores";
 import PopoverMenu from "@/components/ui/PopoverMenu.vue";
 import { computed } from "vue";
-import { v4 } from "uuid";
 
 const props = defineProps({
   route: { type: Object as () => Route, required: true },

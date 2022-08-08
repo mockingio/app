@@ -30,7 +30,7 @@ export interface Route {
 
 export interface Response {
   id: string;
-  status: string;
+  status: number;
   body: string;
   headers: { [key: string]: string };
 }
