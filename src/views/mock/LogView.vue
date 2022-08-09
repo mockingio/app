@@ -1,3 +1,1 @@
-<template>
-  Route View Here
-</template>
+<template>Route View Here</template>

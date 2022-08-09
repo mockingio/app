@@ -1,5 +1,3 @@
-<template>
-  Setting
-</template>
+<template>Setting</template>
 
 <script setup lang="ts"></script>
